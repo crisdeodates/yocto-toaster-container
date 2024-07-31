@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include: 
+        include:
         # BRANCH is the actual branch/tag in the github repo
         # DOCKERHUB_TAGs are the tags to use for the REPO when pushing to dockerhub
         # POKYBRANCH is the branch of poky selected by toaster to use during tests.
@@ -26,18 +26,14 @@ jobs:
           branch: dunfell
           dockerhub_tag: latest
           pokybranch: dunfell
-        - repo: crops/toaster-hardknott
-          branch: hardknott
-          dockerhub_tag: latest
-          pokybranch: hardknott
-        - repo: crops/toaster-honister
-          branch: honister
-          dockerhub_tag: latest
-          pokybranch: honister
         - repo: crops/toaster-kirkstone
           branch: kirkstone
           dockerhub_tag: latest
           pokybranch: kirkstone
+        - repo: crops/toaster-mickledore
+          branch: mickledore
+          dockerhub_tag: latest
+          pokybranch: mickledore
         - repo: crops/toaster-master
           branch: master
           dockerhub_tag: latest
@@ -59,10 +55,10 @@ jobs:
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Set up Python 3.8
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: 3.8
 
@@ -75,7 +71,7 @@ jobs:
 
       # For annotate-output
       - name: pre-install
-        run: sudo apt-get install -y devscripts
+        run: sudo apt-get update && sudo apt-get install -y devscripts
 
       # Build the image
       - name: build
